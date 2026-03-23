@@ -1,26 +1,58 @@
+import java.util.HashMap;
+import java.util.Map;
+
+// Inventory class to manage room availability
+class RoomInventory {
+
+    private HashMap<String, Integer> inventory;
+
+    // Constructor to initialize inventory
+    public RoomInventory() {
+        inventory = new HashMap<>();
+
+        inventory.put("Single Room", 5);
+        inventory.put("Double Room", 3);
+        inventory.put("Suite Room", 2);
+    }
+
+    // Method to get availability
+    public int getAvailability(String roomType) {
+        return inventory.getOrDefault(roomType, 0);
+    }
+
+    // Method to update availability
+    public void updateAvailability(String roomType, int count) {
+        inventory.put(roomType, count);
+    }
+
+    // Method to display inventory
+    public void displayInventory() {
+        System.out.println("Current Room Inventory:");
+
+        for (Map.Entry<String, Integer> entry : inventory.entrySet()) {
+            System.out.println(entry.getKey() + " : " + entry.getValue());
+        }
+    }
+}
+
+// Main class
 public class BookMyStayApp {
 
     public static void main(String[] args) {
 
-        System.out.println("=================================");
-        System.out.println("        BOOK MY STAY APP         ");
-        System.out.println("=================================");
-        System.out.println("Welcome to the Hotel Booking System");
-        System.out.println("Application Version: 1.0");
+        System.out.println("Book My Stay - Inventory Setup (Version 3.1)\n");
 
-        initializeRooms();
+        RoomInventory inventory = new RoomInventory();
 
-    }
+        inventory.displayInventory();
 
-    public static void initializeRooms() {
+        System.out.println("\nChecking availability of Single Room:");
+        System.out.println("Available: " + inventory.getAvailability("Single Room"));
 
-        int totalRooms = 5;
+        System.out.println("\nUpdating availability of Single Room to 4...");
+        inventory.updateAvailability("Single Room", 4);
 
-        System.out.println("Initializing hotel rooms...");
-
-        for(int i = 1; i <= totalRooms; i++) {
-            System.out.println("Room " + i + " ready");
-        }
-
+        System.out.println("\nUpdated Inventory:");
+        inventory.displayInventory();
     }
 }
